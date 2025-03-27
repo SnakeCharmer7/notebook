@@ -7,7 +7,14 @@
 <ul class="list-group list-group-flush mb-2" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item d-flex align-items-center" id="note-{{ note.id }}">
-        <span class="me-auto">{{ note.text }}</span>
+        <span class="me-auto">{{ note.text.replace("\n", "<br>")|safe }}</span>
+        <button class="btn me-2"
+                hx-get="{{ url_for('views.edit_note_modal', note_id=note.id) }}"
+                hx-target="#edit-modal-content"
+                hx-trigger="click"
+                data-bs-toggle="modal" data-bs-target="#editModal">
+            <i class="bi bi-pencil"></i>
+        </button>
         <button type="button" class="btn-close"
                 hx-delete="{{ url_for('views.delete_note', note_id=note.id) }}" 
                 hx-target="#note-{{ note.id }}"
@@ -22,4 +29,19 @@
         <button type="submit" class="btn btn-primary mt-2">Add Note</button>
     </div>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="edit-modal-content">
+            <!-- Here HTMX will throw in an edit form -->
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
