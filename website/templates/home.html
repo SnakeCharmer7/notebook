@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1 class="text-center">Notes</h1>
-<ul class="list-group list-group-flush mb-2" id="notes">
+<ul class="list-group list-group-flush mb-4" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item d-flex align-items-center" id="note-{{ note.id }}">
         <span class="me-auto">{{ note.text.replace("\n", "<br>")|safe }}</span>
@@ -24,9 +24,9 @@
     {% endfor %}
 </ul>
 <form method="post">
-    <textarea name="note" id="note" class="form-control"></textarea>
+    <textarea name="note" id="note" rows="5" class="form-control"></textarea>
     <div class="text-center">
-        <button type="submit" class="btn btn-primary mt-2">Add Note</button>
+        <button type="submit" class="btn btn-primary mt-1 w-100">Add Note</button>
     </div>
 </form>
 
